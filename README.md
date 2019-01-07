@@ -5,7 +5,7 @@
 | master | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=master)](https://travis-ci.org/userfrosting/browserify-dependencies) |
 | develop | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=develop)](https://travis-ci.org/userfrosting/browserify-dependencies) |
 
-Runs browserify against dependencies in `node_modules`, outputting the results in a specfied location. Makes no attempt to patch node specifics.
+Runs browserify against dependencies in `node_modules`, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
 
 ## Install
 
