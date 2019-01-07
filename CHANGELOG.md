@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.0.0-alpha.2] - 2019-01-07
 
+### Fixed
+- Support main fields that don't specify the file extension.  (#1)
+
 ## [1.0.0-alpha.1] - 2019-01-07
 
 Inital release
