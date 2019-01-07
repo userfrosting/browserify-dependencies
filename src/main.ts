@@ -24,11 +24,17 @@ export default async function (userOptions: IOptions): Promise<void> {
 
         // Set output path
         const targetPath = (() => {
-            // Handle incomplete main attribute
-            if (lstatSync(depOptions.browserifyOptions.entries).isDirectory())
-                return joinPathSegments(options.outputDir, depName, pkg.main || "./", "index.js");
-            else
-                return joinPathSegments(options.outputDir, depName, pkg.main);
+            try {
+                if (lstatSync(depOptions.browserifyOptions.entries).isDirectory())
+                    // Handle folder and no main
+                    return joinPathSegments(options.outputDir, depName, pkg.main || "./", "./index.js");
+            } catch {
+                // Handle file without extension (assume js)
+                return joinPathSegments(options.outputDir, depName, pkg.main + ".js");
+            }
+
+            // And finally, handle exact path
+            return joinPathSegments(options.outputDir, depName, pkg.main);
         })();
 
         // Ensure directory tree exists
