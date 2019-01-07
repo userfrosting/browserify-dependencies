@@ -1,52 +1,71 @@
 import Browserify from "browserify";
 import PQueue from "p-queue";
-import Extend from "just-extend";
-import { readFileSync, createWriteStream } from "fs";
-import { join } from "path";
+import extendObject from "just-extend";
+import { readFileSync, createWriteStream, lstatSync, mkdirSync, rmdirSync } from "fs";
+import { join as joinPathSegments } from "path";
 
-export default async function (options: IOptions): Promise<void> {
-    // TODO Fill in required options
+export default async function (userOptions: IOptions): Promise<void> {
+    // Fill in required options
+    const options = new Options(userOptions);
 
-    const Queue = new PQueue({
-        concurrency: options.concurrency ? options.concurrency : 4
+    const queue = new PQueue({
+        concurrency: options.concurrency
     });
 
-    for (const dependency of options.dependencies) {
-        // TODO Make options clone and modify
-        const lOptions = Extend({}, options, {}) as IOptions;
+    for (const depName of userOptions.dependencies) {
+        // Clone options for dependency
+        const depOptions = options.clone();
 
-        // TODO Locate index/entry file
-        // TODO Use browser property if defined
-        const pkg = JSON.parse(readFileSync(join(options.inputDir, dependency, "package.json")).toString());
-        const index = pkg.main ? pkg.main : "index.js";
+        // Read dependency info from package
+        const pkg = JSON.parse(readFileSync(joinPathSegments(options.inputDir, depName, "package.json")).toString());
 
-        // TODO Make browserify options
-        const bOptions: Browserify.Options = lOptions.browserifyOptions ? lOptions.browserifyOptions : {};
-        bOptions.entries = join(options.inputDir, dependency, index);
+        // Set entry file (browser field not used due to being non-standard and otherwise complex)
+        depOptions.browserifyOptions.entries = joinPathSegments(options.inputDir, depName, pkg.main ||  "./");
 
-        Queue.add(() => BrowserifyDependency(dependency, bOptions));
+        // Set output path
+        const targetPath = (() => {
+            // Handle incomplete main attribute
+            if (lstatSync(depOptions.browserifyOptions.entries).isDirectory())
+                return joinPathSegments(options.outputDir, depName, pkg.main || "./", "index.js");
+            else
+                return joinPathSegments(options.outputDir, depName, pkg.main);
+        })();
+
+        // Ensure directory tree exists
+        try {
+            mkdirSync(targetPath, { recursive: true });
+            rmdirSync(targetPath);
+        }
+        catch (ex) {
+            // No issue if it already exists
+            if (ex.code !== "EEXIST") throw ex;
+        }
+
+        // Add to queue
+        queue.add(() => BrowserifyDependency(depName, targetPath, depOptions));
     }
 
-    await Queue.onIdle();
+    await queue.onIdle();
 }
 
-async function BrowserifyDependency(name: string, options: Browserify.Options) {
-    const BrowserifyInstance = new Browserify(options);
+async function BrowserifyDependency(depName: string, targetPath: string, options: Options) {
+    const BrowserifyInstance = new Browserify(options.browserifyOptions);
 
-    const ws = createWriteStream("./test.js");
+    // Open write stream
+    const out = createWriteStream(targetPath, { flags: "w" });
 
-    BrowserifyInstance.bundle().pipe(ws)
-
-    // TODO Bundle
-    await new Promise(resolve => ws.on("finish", resolve));
-
-    
+    // Browserify and save script
+    BrowserifyInstance.bundle().pipe(out);
+    await new Promise(resolve => out.on("finish", resolve));
 }
 
+/**
+ * Interface defining possible user provided options.
+ */
 export interface IOptions {
     /**
      * Options passed to browserify.
-     * Certain properties (such as input) will be overwritten.
+     * Certain properties (such as entries) will be overwritten.
      */
     browserifyOptions?: Browserify.Options;
 
@@ -69,4 +88,33 @@ export interface IOptions {
      * Path to output directory.
      */
     outputDir: string;
+}
+
+/**
+ * Fills in missing options from provided user options to apply defaults.
+ */
+class Options implements IOptions {
+    browserifyOptions: Browserify.Options;
+    concurrency: number;
+    dependencies: string[];
+    inputDir: string;
+    outputDir: string;
+    
+    /**
+     * @param userOptions User options to build instance from.
+     */
+    constructor(userOptions: IOptions) {
+        this.browserifyOptions = userOptions.browserifyOptions ? extendObject(true, {}, userOptions.browserifyOptions) : {};
+        this.concurrency = userOptions.concurrency || 4;
+        this.dependencies = userOptions.dependencies;
+        this.inputDir = userOptions.inputDir;
+        this.outputDir = userOptions.outputDir;
+    }
+
+    /**
+     * Creates a deep clone of the instance.
+     */
+    clone(): Options {
+        return extendObject(true, {}, this) as Options;
+    }
 }

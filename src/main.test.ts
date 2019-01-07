@@ -1,13 +1,17 @@
 import BrowserifyDeps, { IOptions } from "./main";
 import test from "ava";
 
-test("Basic scenario", async t => {
+test("Doesn't crash", async t => {
     const options: IOptions = {
         dependencies: [
-            "changelog-updater"
+            "changelog-updater",
+            "p-queue",
+            "just-extend",
+            "typescript",
+            "browserify"
         ],
         inputDir: "./node_modules",
-        outputDir: "./main.test/browser_modules"
+        outputDir: "./dist/main.test/browser_modules"
     };
 
     await BrowserifyDeps(options);
