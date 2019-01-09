@@ -1,6 +1,6 @@
 {
   "name": "@userfrosting/browserify-dependencies",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-beta.1",
   "description": "Run browserify against all dependencies defined in package.json",
   "main": "./dist/index.js",
   "module": "./dist/main.js",
