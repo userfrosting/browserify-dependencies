@@ -5,12 +5,12 @@
 | master | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=master)](https://travis-ci.org/userfrosting/browserify-dependencies) |
 | develop | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=develop)](https://travis-ci.org/userfrosting/browserify-dependencies) |
 
-Runs browserify against dependencies in `node_modules`, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
+Runs browserify against compatible dependencies in `node_modules`, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
 
 ## Install
 
 ```bash
-npm install @userfrosting/browserify-dependencies@alpha --save-dev
+npm install @userfrosting/browserify-dependencies --save-dev
 ```
 
 ## Usage

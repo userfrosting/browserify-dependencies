@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Possible failure in directory tree creation.
+
 ## [1.0.0-beta.1] - 2019-01-09
 
 Inital release

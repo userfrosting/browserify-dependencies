@@ -1,7 +1,7 @@
 import Browserify from "browserify";
-import PQueue from "p-queue";
+import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, rmdirSync } from "fs";
 import extendObject from "just-extend";
-import { readFileSync, createWriteStream, lstatSync, mkdirSync, rmdirSync } from "fs";
+import PQueue from "p-queue";
 import { join as joinPathSegments } from "path";
 
 export default async function (userOptions: IOptions): Promise<void> {
@@ -42,7 +42,18 @@ export default async function (userOptions: IOptions): Promise<void> {
 
         // Ensure directory tree exists
         try {
-            mkdirSync(targetPath, { recursive: true });
+            try {
+                mkdirSync(targetPath, { recursive: true });
+            } catch {
+                // Fallback for when recursive fails
+                function createDirRecursively(dir) {
+                    if (!existsSync(dir)) {        
+                        createDirRecursively(joinPathSegments(dir, ".."));
+                        mkdirSync(dir);
+                    }
+                }
+                createDirRecursively(targetPath);
+            }
             rmdirSync(targetPath);
         }
         catch (ex) {
