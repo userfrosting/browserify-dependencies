@@ -1,5 +1,5 @@
 import Browserify from "browserify";
-import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, rmdirSync } from "fs";
+import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
 import extendObject from "just-extend";
 import PQueue from "p-queue";
 import { join as joinPathSegments } from "path";
@@ -54,7 +54,13 @@ export default async function (userOptions: IOptions): Promise<void> {
                 }
                 createDirRecursively(targetPath);
             }
-            rmdirSync(targetPath);
+            // Removes folder/file at end of target path
+            if (lstatSync(targetPath).isDirectory()) {
+                rmdirSync(targetPath);
+            }
+            else {
+                unlinkSync(targetPath);
+            }
         }
         catch (ex) {
             // No issue if it already exists

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Failure on successive runs due to attempting to delete a file using directory methods. Scenario now addressed in unit tests.
+
+### Security
+- Updated dev dependency `ava` to address vulnerabilities in indirect dependencies `tar` and `js-yaml`.
+
 ## [1.0.0] - 2019-03-12
 
 First stable release.
