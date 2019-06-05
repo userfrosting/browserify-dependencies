@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2019-06-05
+
 ### Fixed
 - Failure on successive runs due to attempting to delete a file using directory methods. Scenario now addressed in unit tests.
 
