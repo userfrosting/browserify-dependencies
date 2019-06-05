@@ -1,5 +1,6 @@
-import BrowserifyDeps, { IOptions } from "./main";
 import test from "ava";
+import del from "del";
+import BrowserifyDeps, { IOptions } from "./main";
 
 test("Doesn't crash", async t => {
     const options: IOptions = {
@@ -14,6 +15,14 @@ test("Doesn't crash", async t => {
         outputDir: "./dist/main.test/browser_modules"
     };
 
+    // Clear target
+    await del(options.outputDir);
+
+    // First run (no files exist in target)
     await BrowserifyDeps(options);
+
+    // Second run (files exist in target)
+    await BrowserifyDeps(options);
+
     t.pass();
 });
