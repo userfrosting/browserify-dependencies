@@ -4,6 +4,7 @@ src/
 **/*.test.js
 **/*.test.d.ts
 **/*.test/**/*
+**/*.map
 dist/index.d.ts
 tsconfig.json
 .gitattributes
