@@ -9,6 +9,9 @@
         "noEmitHelpers": true,
         "declaration": true,
         "target": "es2017",
-        "outDir": "./dist/"
+        "outDir": "./dist/",
+        // Added to address TS1169 error in node_modules/ono/esm/types.d.ts:88:5
+        "skipLibCheck": true,
+        "sourceMap": true
     }
 }

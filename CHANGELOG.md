@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- Expanded test coverge to account for failure scenario.
+
+### Fixed
+- Errors while running browserify against dependency not getting hoisted up, resulting in silent failures.
+
+### Changed
+- Deprecated concurrency option citing lack of a tangible benefit in its current from and potential for issues in Browserify which isn't built to be run alongside other concurrent instances.
+- Updated dependencies.
+
 ## [1.0.1] - 2019-06-05
 
 ### Fixed

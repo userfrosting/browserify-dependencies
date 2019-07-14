@@ -1,16 +1,12 @@
 import Browserify from "browserify";
 import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
 import extendObject from "just-extend";
-import PQueue from "p-queue";
 import { join as joinPathSegments } from "path";
+import ono from "ono";
 
 export default async function (userOptions: IOptions): Promise<void> {
     // Fill in required options
     const options = new Options(userOptions);
-
-    const queue = new PQueue({
-        concurrency: options.concurrency
-    });
 
     for (const depName of userOptions.dependencies) {
         // Clone options for dependency
@@ -68,10 +64,8 @@ export default async function (userOptions: IOptions): Promise<void> {
         }
 
         // Add to queue
-        queue.add(() => BrowserifyDependency(depName, targetPath, depOptions));
+        await BrowserifyDependency(depName, targetPath, depOptions);
     }
-
-    await queue.onIdle();
 }
 
 async function BrowserifyDependency(depName: string, targetPath: string, options: Options) {
@@ -81,8 +75,21 @@ async function BrowserifyDependency(depName: string, targetPath: string, options
     const out = createWriteStream(targetPath, { flags: "w" });
 
     // Browserify and save script
-    BrowserifyInstance.bundle().pipe(out);
-    await new Promise(resolve => out.on("finish", resolve));
+    const bundleStream = BrowserifyInstance.bundle();
+    bundleStream.pipe(out);
+
+    await new Promise(function (resolve, reject) {
+        let errored = false;
+        function handleError(e: any) {
+            if (!errored) {
+                errored = true;
+                reject(ono(e, `Failed to browserify '${depName}'`));
+            }
+        }
+        bundleStream.on("error", handleError);
+        out.on("error", handleError);
+        out.on("finish", resolve)
+    });
 }
 
 /**
@@ -97,6 +104,8 @@ export interface IOptions {
 
     /**
      * Maximum number of concurrent browserify bundling operations.
+     * @deprecated Since 1.0.1, benefits of concurreny ultimately limited due to single-threaded runtime
+     * and increases risk of issues within Browserify (not intended for parallel usage).
      */
     concurrency?: number;
 
