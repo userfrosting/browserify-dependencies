@@ -18,6 +18,11 @@ export default async function (userOptions: IOptions): Promise<void> {
         // Skip if no main
         if (!pkg.main) continue;
 
+        // Workaround for invalid main definition.
+        if (Array.isArray(pkg.main)) {
+           pkg.main = pkg.main[0];
+        }
+
         // Set entry file (browser field not used due to being non-standard and otherwise complex)
         depOptions.browserifyOptions.entries = joinPathSegments(options.inputDir, depName, pkg.main ||  "./");
 
