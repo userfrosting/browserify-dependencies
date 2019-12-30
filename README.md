@@ -2,15 +2,16 @@
 
 | Branch | Status |
 | ------ | ------ |
-| master | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=master)](https://travis-ci.org/userfrosting/browserify-dependencies) |
-| develop | [![Build Status](https://travis-ci.org/userfrosting/browserify-dependencies.svg?branch=develop)](https://travis-ci.org/userfrosting/browserify-dependencies) |
+| master | [![Continuous Integration](https://github.com/userfrosting/browserify-dependencies/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/userfrosting/browserify-dependencies/actions) [![codecov](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/master/graph/badge.svg)](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/master) |
+| develop | [![Continuous Integration](https://github.com/userfrosting/browserify-dependencies/workflows/Continuous%20Integration/badge.svg?branch=develop)](https://github.com/userfrosting/browserify-dependencies/actions) [![codecov](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop/graph/badge.svg)](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop) |
 
-Runs browserify against compatible dependencies in `node_modules`, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
+
+Runs browserify against compatible dependencies in `node_modules` or whichever other folder you specify, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
 
 ## Install
 
 ```bash
-npm install @userfrosting/browserify-dependencies --save-dev
+npm i -D @userfrosting/browserify-dependencies
 ```
 
 ## Usage
@@ -32,6 +33,11 @@ BrowserifyDeps(options)
     .catch(() => console.log("Things have not gone according to plan... 🔥"));
 ```
 
+## API
+
+API documentation is regenerated for every release using [API Extractor](https://www.npmjs.com/package/@microsoft/api-extractor) and [API Documenter](https://www.npmjs.com/package/@microsoft/api-documenter).
+The results reside in [docs/api](./docs/api/index.md).
+
 ## Release process
 
 Generally speaking, all releases should first traverse through `alpha`, `beta`, and `rc` (release candidate) to catch missed bugs and gather feedback as appropriate. Aside from this however, there are a few steps that **MUST** always be done.
@@ -43,4 +49,4 @@ Generally speaking, all releases should first traverse through `alpha`, `beta`, 
 
 ## License
 
-[LICENSE](LICENSE)
+[MIT](LICENSE)

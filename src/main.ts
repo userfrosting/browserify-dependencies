@@ -4,6 +4,12 @@ import extendObject from "just-extend";
 import { join as joinPathSegments } from "path";
 import ono from "ono";
 
+/**
+ * Runs browserify against compatible dependencies in specified folder.
+ * @param userOptions - Options
+ *
+ * @public
+ */
 export default async function (userOptions: IOptions): Promise<void> {
     // Fill in required options
     const options = new Options(userOptions);
@@ -43,7 +49,7 @@ export default async function (userOptions: IOptions): Promise<void> {
             } catch {
                 // Fallback for when recursive fails
                 function createDirRecursively(dir) {
-                    if (!existsSync(dir)) {        
+                    if (!existsSync(dir)) {
                         createDirRecursively(joinPathSegments(dir, ".."));
                         mkdirSync(dir);
                     }
@@ -94,6 +100,8 @@ async function BrowserifyDependency(depName: string, targetPath: string, options
 
 /**
  * Interface defining possible user provided options.
+ *
+ * @public
  */
 export interface IOptions {
     /**
@@ -134,7 +142,7 @@ class Options implements IOptions {
     dependencies: string[];
     inputDir: string;
     outputDir: string;
-    
+
     /**
      * @param userOptions User options to build instance from.
      */
