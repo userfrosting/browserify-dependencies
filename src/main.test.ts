@@ -49,3 +49,5 @@ test.serial("Throws when attempting to browserify non existant dependency", asyn
 });
 
 test.todo("Throws when attempting to browserify dependency with malformed input file");
+
+test.todo("Successfully runs against dependencies with an array for main");
