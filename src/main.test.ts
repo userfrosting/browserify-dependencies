@@ -2,7 +2,7 @@ import test from "ava";
 import del from "del";
 import BrowserifyDeps, { IOptions } from "./main";
 
-test("T1 - Successfully runs browserify against dependencies", async t => {
+test.serial("Successfully runs browserify against dependencies", async t => {
     const options: IOptions = {
         dependencies: [
             "changelog-updater",
@@ -18,13 +18,15 @@ test("T1 - Successfully runs browserify against dependencies", async t => {
     await del(options.outputDir);
 
     // First run (no files exist in target)
+    t.timeout(30000);
     await t.notThrowsAsync(() => BrowserifyDeps(options));
 
     // Second run (files exist in target)
+    t.timeout(30000);
     await t.notThrowsAsync(() => BrowserifyDeps(options));
 });
 
-test("T2 - Throws when attempting to browserify non existant dependency", async t => {
+test.serial("Throws when attempting to browserify non existant dependency", async t => {
     const options: IOptions = {
         dependencies: [
             "p-queue"
@@ -36,6 +38,7 @@ test("T2 - Throws when attempting to browserify non existant dependency", async 
     // Clear target
     await del(options.outputDir);
 
+    t.timeout(30000);
     await t.throwsAsync(
         () => BrowserifyDeps(options),
         {
@@ -45,4 +48,4 @@ test("T2 - Throws when attempting to browserify non existant dependency", async 
     );
 });
 
-test.todo("T3 - Throws when attempting to browserify dependency with malformed input file");
+test.todo("Throws when attempting to browserify dependency with malformed input file");

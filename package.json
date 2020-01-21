@@ -8,7 +8,7 @@
     "types": "./dist/main.d.ts",
     "scripts": {
         "pretest": "tsc",
-        "test": "nyc --reporter=text ava",
+        "test": "nyc --reporter=text ava -T 2m",
         "prepublishOnly": "tsc",
         "preversion": "npm test",
         "version": "npm run version:apiDocRefresh && npm run version:changelogBump",
