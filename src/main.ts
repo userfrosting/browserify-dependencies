@@ -26,6 +26,7 @@ export default async function (userOptions: IOptions): Promise<void> {
 
         // Workaround for invalid main definition
         // EG: https://github.com/jonmiles/bootstrap-treeview/blob/master/package.json#L22-L25
+        /* istanbul ignore if */
         if (Array.isArray(pkg.main)) {
            pkg.main = pkg.main[0];
         }
