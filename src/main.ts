@@ -109,13 +109,6 @@ export interface IOptions {
     browserifyOptions?: Browserify.Options;
 
     /**
-     * Maximum number of concurrent browserify bundling operations.
-     * @deprecated Since 1.0.1, benefits of concurreny ultimately limited due to single-threaded runtime
-     * and increases risk of issues within Browserify (not intended for parallel usage).
-     */
-    concurrency?: number;
-
-    /**
      * List of dependencies to run browserify against
      */
     dependencies: string[];
@@ -136,7 +129,6 @@ export interface IOptions {
  */
 class Options implements IOptions {
     browserifyOptions: Browserify.Options;
-    concurrency: number;
     dependencies: string[];
     inputDir: string;
     outputDir: string;
@@ -146,7 +138,6 @@ class Options implements IOptions {
      */
     constructor(userOptions: IOptions) {
         this.browserifyOptions = userOptions.browserifyOptions ? extend(true, {}, userOptions.browserifyOptions) : {};
-        this.concurrency = userOptions.concurrency ?? 4;
         this.dependencies = userOptions.dependencies;
         this.inputDir = userOptions.inputDir;
         this.outputDir = userOptions.outputDir;

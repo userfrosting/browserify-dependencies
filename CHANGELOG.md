@@ -7,10 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-Maintenance release.
-- Updated dependencies.
-- Migrated CI over to GitHub Actions from Travis CI.
-- Added `.editorconfig`
+### Fixed
+- Workaround for malformed package main values of type array (thanks @silvioq)
+
+### Changed
+- Raised minimum node version from 8 to 10.12
+- Updated `ono` (thrown errors may have a different type)
+
+### Removed
+- Deprecated concurrency option
 
 ## [1.1.0] - 2019-07-14
 
