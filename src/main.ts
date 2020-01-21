@@ -31,7 +31,7 @@ export default async function (userOptions: IOptions): Promise<void> {
         }
 
         // Set entry file (browser field not used due to being non-standard and otherwise complex)
-        depOptions.browserifyOptions.entries = joinPaths(options.inputDir, depName, pkg.main ||  "./");
+        depOptions.browserifyOptions.entries = joinPaths(options.inputDir, depName, pkg.main);
 
         // Set output path
         const targetPath = (() => {
@@ -145,7 +145,7 @@ class Options implements IOptions {
      */
     constructor(userOptions: IOptions) {
         this.browserifyOptions = userOptions.browserifyOptions ? extend(true, {}, userOptions.browserifyOptions) : {};
-        this.concurrency = userOptions.concurrency || 4;
+        this.concurrency = userOptions.concurrency ?? 4;
         this.dependencies = userOptions.dependencies;
         this.inputDir = userOptions.inputDir;
         this.outputDir = userOptions.outputDir;
