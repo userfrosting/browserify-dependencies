@@ -1,7 +1,7 @@
 import Browserify from "browserify";
-import { createWriteStream, existsSync, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
-import extendObject from "just-extend";
-import { join as joinPathSegments } from "path";
+import { createWriteStream, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
+import extend from "just-extend";
+import { join as joinPaths } from "path";
 import ono from "ono";
 
 /**
@@ -19,43 +19,41 @@ export default async function (userOptions: IOptions): Promise<void> {
         const depOptions = options.clone();
 
         // Read dependency info from package
-        const pkg = JSON.parse(readFileSync(joinPathSegments(options.inputDir, depName, "package.json")).toString());
+        const pkg = JSON.parse(readFileSync(joinPaths(options.inputDir, depName, "package.json")).toString());
 
         // Skip if no main
         if (!pkg.main) continue;
 
+        // Workaround for invalid main definition
+        // EG: https://github.com/jonmiles/bootstrap-treeview/blob/master/package.json#L22-L25
+        /* istanbul ignore if */
+        if (Array.isArray(pkg.main)) {
+           pkg.main = pkg.main[0];
+        }
+
         // Set entry file (browser field not used due to being non-standard and otherwise complex)
-        depOptions.browserifyOptions.entries = joinPathSegments(options.inputDir, depName, pkg.main ||  "./");
+        depOptions.browserifyOptions.entries = joinPaths(options.inputDir, depName, pkg.main);
 
         // Set output path
         const targetPath = (() => {
             try {
-                if (lstatSync(depOptions.browserifyOptions.entries).isDirectory())
+                if (lstatSync(depOptions.browserifyOptions.entries).isDirectory()) {
                     // Handle folder
-                    return joinPathSegments(options.outputDir, depName, "./index.js");
+                    return joinPaths(options.outputDir, depName, "./index.js");
+                }
             } catch {
                 // Handle file without extension (assume js)
-                return joinPathSegments(options.outputDir, depName, pkg.main + ".js");
+                return joinPaths(options.outputDir, depName, pkg.main + ".js");
             }
 
             // And finally, handle exact path
-            return joinPathSegments(options.outputDir, depName, pkg.main);
+            return joinPaths(options.outputDir, depName, pkg.main);
         })();
 
         // Ensure directory tree exists
         try {
-            try {
-                mkdirSync(targetPath, { recursive: true });
-            } catch {
-                // Fallback for when recursive fails
-                function createDirRecursively(dir) {
-                    if (!existsSync(dir)) {
-                        createDirRecursively(joinPathSegments(dir, ".."));
-                        mkdirSync(dir);
-                    }
-                }
-                createDirRecursively(targetPath);
-            }
+            mkdirSync(targetPath, { recursive: true });
+
             // Removes folder/file at end of target path
             if (lstatSync(targetPath).isDirectory()) {
                 rmdirSync(targetPath);
@@ -111,13 +109,6 @@ export interface IOptions {
     browserifyOptions?: Browserify.Options;
 
     /**
-     * Maximum number of concurrent browserify bundling operations.
-     * @deprecated Since 1.0.1, benefits of concurreny ultimately limited due to single-threaded runtime
-     * and increases risk of issues within Browserify (not intended for parallel usage).
-     */
-    concurrency?: number;
-
-    /**
      * List of dependencies to run browserify against
      */
     dependencies: string[];
@@ -138,7 +129,6 @@ export interface IOptions {
  */
 class Options implements IOptions {
     browserifyOptions: Browserify.Options;
-    concurrency: number;
     dependencies: string[];
     inputDir: string;
     outputDir: string;
@@ -147,8 +137,7 @@ class Options implements IOptions {
      * @param userOptions User options to build instance from.
      */
     constructor(userOptions: IOptions) {
-        this.browserifyOptions = userOptions.browserifyOptions ? extendObject(true, {}, userOptions.browserifyOptions) : {};
-        this.concurrency = userOptions.concurrency || 4;
+        this.browserifyOptions = userOptions.browserifyOptions ? extend(true, {}, userOptions.browserifyOptions) : {};
         this.dependencies = userOptions.dependencies;
         this.inputDir = userOptions.inputDir;
         this.outputDir = userOptions.outputDir;
@@ -158,6 +147,6 @@ class Options implements IOptions {
      * Creates a deep clone of the instance.
      */
     clone(): Options {
-        return extendObject(true, {}, this) as Options;
+        return extend(true, {}, this) as Options;
     }
 }

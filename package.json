@@ -8,7 +8,7 @@
     "types": "./dist/main.d.ts",
     "scripts": {
         "pretest": "tsc",
-        "test": "nyc --reporter=text ava",
+        "test": "nyc --reporter=text ava -T 2m",
         "prepublishOnly": "tsc",
         "preversion": "npm test",
         "version": "npm run version:apiDocRefresh && npm run version:changelogBump",
@@ -29,19 +29,19 @@
         "browserify": "^16.5.0",
         "esm": "^3.2.25",
         "just-extend": "^4.0.2",
-        "ono": "^5.1.0"
+        "ono": "^6.0.1"
     },
     "devDependencies": {
-        "@microsoft/api-documenter": "^7.7.2",
-        "@microsoft/api-extractor": "^7.7.0",
+        "@microsoft/api-documenter": "^7.7.8",
+        "@microsoft/api-extractor": "^7.7.5",
         "@types/browserify": "^12.0.36",
         "@types/just-extend": "^1.1.0",
-        "@types/node": "13.1.1",
-        "ava": "^2.4.0",
+        "@types/node": "13.1.8",
+        "ava": "^3.0.0",
         "changelog-updater": "^1.1.0",
         "del": "^5.1.0",
         "nyc": "^15.0.0",
-        "typescript": "^3.7.4"
+        "typescript": "^3.7.5"
     },
     "engines": {
         "node": ">=10.12.0"
@@ -53,7 +53,6 @@
         ],
         "require": [
             "esm"
-        ],
-        "babel": false
+        ]
     }
 }
