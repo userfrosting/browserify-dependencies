@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+- `ono` to `@jsdevtools/ono`, and bumped version to 7.1
+
 ## [2.0.0] - 2020-01-22
 
 ### Fixed
