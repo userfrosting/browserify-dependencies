@@ -17,7 +17,6 @@ export interface IOptions
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [browserifyOptions](./browserify-dependencies.ioptions.browserifyoptions.md) | <code>Browserify.Options</code> | Options passed to browserify. Certain properties (such as entries) will be overwritten. |
-|  [concurrency](./browserify-dependencies.ioptions.concurrency.md) | <code>number</code> | Maximum number of concurrent browserify bundling operations. |
 |  [dependencies](./browserify-dependencies.ioptions.dependencies.md) | <code>string[]</code> | List of dependencies to run browserify against |
 |  [inputDir](./browserify-dependencies.ioptions.inputdir.md) | <code>string</code> | Path to dependencies folder. |
 |  [outputDir](./browserify-dependencies.ioptions.outputdir.md) | <code>string</code> | Path to output directory. |
