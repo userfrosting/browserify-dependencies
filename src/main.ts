@@ -2,7 +2,7 @@ import Browserify from "browserify";
 import { createWriteStream, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
 import extend from "just-extend";
 import { join as joinPaths } from "path";
-import ono from "ono";
+import ono from "@jsdevtools/ono";
 
 /**
  * Runs browserify against compatible dependencies in specified folder.
