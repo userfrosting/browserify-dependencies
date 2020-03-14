@@ -35,20 +35,7 @@ export default async function (userOptions: IOptions): Promise<void> {
         depOptions.browserifyOptions.entries = joinPaths(options.inputDir, depName, pkg.main);
 
         // Set output path
-        const targetPath = (() => {
-            try {
-                if (lstatSync(depOptions.browserifyOptions.entries).isDirectory()) {
-                    // Handle folder
-                    return joinPaths(options.outputDir, depName, "./index.js");
-                }
-            } catch {
-                // Handle file without extension (assume js)
-                return joinPaths(options.outputDir, depName, pkg.main + ".js");
-            }
-
-            // And finally, handle exact path
-            return joinPaths(options.outputDir, depName, pkg.main);
-        })();
+        const targetPath = joinPaths(options.outputDir, `${depName}_browserified.js`);
 
         // Ensure directory tree exists
         try {
@@ -73,7 +60,10 @@ export default async function (userOptions: IOptions): Promise<void> {
 }
 
 async function BrowserifyDependency(depName: string, targetPath: string, options: Options) {
-    const BrowserifyInstance = new Browserify(options.browserifyOptions);
+    const BrowserifyInstance = new Browserify({
+        ...options.browserifyOptions,
+        standalone: depName,
+    });
 
     // Open write stream
     const out = createWriteStream(targetPath, { flags: "w" });

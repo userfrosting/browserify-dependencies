@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Existing defect where browserified code provided no exports. They are now available on `window` based on a camel cased version of the package name.
+
 ### Changed
 - `ono` to `@jsdevtools/ono`, and bumped version to 7.1
+- Results will no longer be within their own folder, and have a file name in the form `[dependency-name]_browserified.js`.
 
 ## [2.0.0] - 2020-01-22
 

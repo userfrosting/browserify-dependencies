@@ -6,7 +6,7 @@
 | develop | [![Continuous Integration](https://github.com/userfrosting/browserify-dependencies/workflows/Continuous%20Integration/badge.svg?branch=develop)](https://github.com/userfrosting/browserify-dependencies/actions) [![codecov](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop/graph/badge.svg)](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop) |
 
 
-Runs browserify against compatible dependencies in `node_modules` or whichever other folder you specify, outputting the results in a specified location. Makes no attempt to patch node internals, etc. Browserify options may however be provided for this purpose.
+Runs browserify against compatible dependencies in `node_modules` or whichever other folder you specify, outputting the results as UMD bundles in a specified location. Makes no attempt to patch node internals, Browserify options may however be provided for this purpose.
 
 ## Install
 
@@ -32,6 +32,8 @@ BrowserifyDeps(options)
     .then(() => console.log("Done! ✨"))
     .catch(() => console.log("Things have not gone according to plan... 🔥"));
 ```
+
+Process modules are wrapped with UMD to allow consumption by most environments, exports in the browser are available via `window.[normalised-package-name]`.
 
 ## API
 
