@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0] - 2020-03-14
+
 ### Fixed
 - Existing defect where browserified code provided no exports. They are now available on `window` based on a camel cased version of the package name.
 
