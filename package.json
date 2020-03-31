@@ -27,18 +27,18 @@
         "url": "https://github.com/userfrosting/browserify-dependencies/issues"
     },
     "dependencies": {
-        "browserify": "^16.5.0",
+        "@jsdevtools/ono": "^7.1.0",
+        "browserify": "^16.5.1",
         "esm": "^3.2.25",
-        "just-extend": "^4.1.0",
-        "@jsdevtools/ono": "^7.1.0"
+        "just-extend": "^4.1.0"
     },
     "devDependencies": {
-        "@microsoft/api-documenter": "^7.7.12",
-        "@microsoft/api-extractor": "^7.7.8",
+        "@microsoft/api-documenter": "^7.7.16",
+        "@microsoft/api-extractor": "^7.7.12",
         "@types/browserify": "^12.0.36",
         "@types/just-extend": "^1.1.0",
         "@types/node": "13.9.1",
-        "ava": "^3.5.0",
+        "ava": "^3.5.2",
         "changelog-updater": "^1.1.0",
         "del": "^5.1.0",
         "nyc": "^15.0.0",
