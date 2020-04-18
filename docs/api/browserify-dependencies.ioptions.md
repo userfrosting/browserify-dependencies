@@ -20,4 +20,5 @@ export interface IOptions
 |  [dependencies](./browserify-dependencies.ioptions.dependencies.md) | <code>string[]</code> | List of dependencies to run browserify against |
 |  [inputDir](./browserify-dependencies.ioptions.inputdir.md) | <code>string</code> | Path to dependencies folder. |
 |  [outputDir](./browserify-dependencies.ioptions.outputdir.md) | <code>string</code> | Path to output directory. |
+|  [silentFailures](./browserify-dependencies.ioptions.silentfailures.md) | <code>boolean</code> | Silently ignore failed browserify runs. |
 
