@@ -54,8 +54,15 @@ export default async function (userOptions: IOptions): Promise<void> {
             if (ex.code !== "EEXIST") throw ex;
         }
 
-        // Add to queue
-        await BrowserifyDependency(depName, targetPath, depOptions);
+        // Process dependency
+        try {
+            await BrowserifyDependency(depName, targetPath, depOptions);
+        } catch (error) {
+            if (!depOptions.silentFailures) {
+                // Errors not silenced, interrupt processing.
+                throw error;
+            }
+        }
     }
 }
 
@@ -112,6 +119,11 @@ export interface IOptions {
      * Path to output directory.
      */
     outputDir: string;
+
+    /**
+     * Silently ignore failed browserify runs.
+     */
+    silentFailures?: boolean;
 }
 
 /**
@@ -122,6 +134,7 @@ class Options implements IOptions {
     dependencies: string[];
     inputDir: string;
     outputDir: string;
+    silentFailures: boolean;
 
     /**
      * @param userOptions User options to build instance from.
@@ -131,6 +144,7 @@ class Options implements IOptions {
         this.dependencies = userOptions.dependencies;
         this.inputDir = userOptions.inputDir;
         this.outputDir = userOptions.outputDir;
+        this.silentFailures = userOptions.silentFailures ?? false;
     }
 
     /**

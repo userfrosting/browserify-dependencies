@@ -48,6 +48,9 @@ test.serial("Throws when attempting to browserify non existant dependency", asyn
     );
 });
 
-test.todo("Throws when attempting to browserify dependency with malformed input file");
+test.todo("Throws when attempting to browserify dependency with malformed input file without silent flag");
 
+test.todo("Doesn't throw when attempting to browserify dependency with malformed input file without silent flag");
+
+// NOTE: Silent failures offers an alternative handling here, do we want to remove support?
 test.todo("Successfully runs against dependencies with an array for main");
