@@ -3,7 +3,6 @@
 | Branch | Status |
 | ------ | ------ |
 | master | [![Continuous Integration](https://github.com/userfrosting/browserify-dependencies/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/userfrosting/browserify-dependencies/actions) [![codecov](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/master/graph/badge.svg)](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/master) |
-| develop | [![Continuous Integration](https://github.com/userfrosting/browserify-dependencies/workflows/Continuous%20Integration/badge.svg?branch=develop)](https://github.com/userfrosting/browserify-dependencies/actions) [![codecov](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop/graph/badge.svg)](https://codecov.io/gh/userfrosting/browserify-dependencies/branch/develop) |
 
 
 Runs browserify against compatible dependencies in `node_modules` or whichever other folder you specify, outputting the results as UMD bundles in a specified location. Makes no attempt to patch node internals, Browserify options may however be provided for this purpose.
