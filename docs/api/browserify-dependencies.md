@@ -8,7 +8,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [default(userOptions)](./browserify-dependencies.default.md) | Runs browserify against compatible dependencies in specified folder. |
+|  [browserifyDependencies(userOptions)](./browserify-dependencies.browserifydependencies.md) | Runs browserify against compatible dependencies in specified folder. |
 
 ## Interfaces
 
