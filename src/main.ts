@@ -10,7 +10,7 @@ import ono from "@jsdevtools/ono";
  *
  * @public
  */
-export default async function (userOptions: IOptions): Promise<void> {
+export async function browserifyDependencies(userOptions: IOptions): Promise<void> {
     // Fill in required options
     const options = new Options(userOptions);
 
