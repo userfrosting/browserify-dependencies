@@ -16,8 +16,12 @@ npm i -D @userfrosting/browserify-dependencies
 
 ## Usage
 
+> **IMPORTANT**<br/>
+> This is an ES module package targeting NodeJS `^12.17.0 || >=13.2.0`, refer to the [NodeJS ESM docs](https://nodejs.org/api/esm.html) regarding how to correctly import.
+> ESM loaders like `@babel/loader` or `esm` likely won't work as expected.
+
 ```js
-import BrowserifyDeps from "@userfrosting/browserify-dependencies";
+import { browserifyDependencies } from "@userfrosting/browserify-dependencies";
 
 const options = {
     dependencies: [
@@ -28,7 +32,7 @@ const options = {
     outputDir: "./browser_modules"
 };
 
-BrowserifyDeps(options)
+browserifyDependencies(options)
     .then(() => console.log("Done! ✨"))
     .catch(() => console.log("Things have not gone according to plan... 🔥"));
 ```
