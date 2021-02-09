@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [4.0.0] - 2021-02-09
+
 ### Changed
 - Switched to native ESM, raising NodeJS requirements to `12.17.0` as a result.
 - Switched from default to named export for more predictable behavior around tooling interactions.
