@@ -16,9 +16,9 @@ export interface IOptions
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [browserifyOptions](./browserify-dependencies.ioptions.browserifyoptions.md) | <code>Browserify.Options</code> | Options passed to browserify. Certain properties (such as entries) will be overwritten. |
-|  [dependencies](./browserify-dependencies.ioptions.dependencies.md) | <code>string[]</code> | List of dependencies to run browserify against |
-|  [inputDir](./browserify-dependencies.ioptions.inputdir.md) | <code>string</code> | Path to dependencies folder. |
-|  [outputDir](./browserify-dependencies.ioptions.outputdir.md) | <code>string</code> | Path to output directory. |
-|  [silentFailures](./browserify-dependencies.ioptions.silentfailures.md) | <code>boolean</code> | Silently ignore failed browserify runs. |
+|  [browserifyOptions?](./browserify-dependencies.ioptions.browserifyoptions.md) | Browserify.Options | <i>(Optional)</i> Options passed to browserify. Certain properties (such as entries) will be overwritten. |
+|  [dependencies](./browserify-dependencies.ioptions.dependencies.md) | string\[\] | List of dependencies to run browserify against |
+|  [inputDir](./browserify-dependencies.ioptions.inputdir.md) | string | Path to dependencies folder. |
+|  [outputDir](./browserify-dependencies.ioptions.outputdir.md) | string | Path to output directory. |
+|  [silentFailures?](./browserify-dependencies.ioptions.silentfailures.md) | boolean | <i>(Optional)</i> Silently ignore failed browserify runs. |
 

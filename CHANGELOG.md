@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [4.0.0] - 2021-02-09
+
+### Changed
+- Switched to native ESM, raising NodeJS requirements to `12.17.0` as a result.
+- Switched from default to named export for more predictable behavior around tooling interactions.
+- Updated browserify from `16.5.2` to `17.0.0`.
+
 ## [3.1.0] - 2020-04-18
 
 ### Added
@@ -36,7 +43,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.1.0] - 2019-07-14
 
 ### Added
-- Expanded test coverge to account for failure scenario.
+- Expanded test coverage to account for failure scenario.
 
 ### Fixed
 - Errors while running browserify against dependency not getting hoisted up, resulting in silent failures.
@@ -64,4 +71,4 @@ First stable release.
 
 ## [1.0.0-beta.1] - 2019-01-09
 
-Inital release
+Initial release

@@ -1,6 +1,6 @@
 import test from "ava";
 import del from "del";
-import BrowserifyDeps, { IOptions } from "./main";
+import { browserifyDependencies, IOptions } from "@userfrosting/browserify-dependencies";
 
 test.serial("Successfully runs browserify against dependencies", async t => {
     const options: IOptions = {
@@ -19,11 +19,11 @@ test.serial("Successfully runs browserify against dependencies", async t => {
 
     // First run (no files exist in target)
     t.timeout(30000);
-    await t.notThrowsAsync(() => BrowserifyDeps(options));
+    await t.notThrowsAsync(() => browserifyDependencies(options));
 
     // Second run (files exist in target)
     t.timeout(30000);
-    await t.notThrowsAsync(() => BrowserifyDeps(options));
+    await t.notThrowsAsync(() => browserifyDependencies(options));
 });
 
 test.serial("Throws when attempting to browserify non existant dependency", async t => {
@@ -40,7 +40,7 @@ test.serial("Throws when attempting to browserify non existant dependency", asyn
 
     t.timeout(30000);
     await t.throwsAsync(
-        () => BrowserifyDeps(options),
+        () => browserifyDependencies(options),
         {
             instanceOf: Error,
             code: "ENOENT",
