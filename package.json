@@ -8,14 +8,18 @@
     "exports": "./dist/main.js",
     "types": "./dist/main.d.ts",
     "scripts": {
-        "pretest": "tsc",
-        "test": "c8 --reporter=text --reporter=lcovonly ava -T 2m",
-        "prepublishOnly": "tsc",
+        "compile": "rm -rf ./dist && tsc",
+        "pretest": "npm run compile && api-extractor run --local",
+        "test": "c8 --all --reporter=text --reporter=lcovonly ava -T 2m",
+        "prepublishOnly": "npm run compile",
         "preversion": "npm test",
         "version": "npm run version:apiDocRefresh && npm run version:changelogBump",
         "postversion": "git push && git push --tags",
         "version:changelogBump": "changelog-updater && git add CHANGELOG.md",
-        "version:apiDocRefresh": "api-extractor run && api-documenter markdown -i ./temp -o ./docs/api && git add ./docs/api/*"
+        "version:apiDocRefresh": "api-extractor run && api-documenter markdown -i ./temp -o ./docs/api && git add ./docs/api/*",
+        "release-readiness": "npm run release-readiness:cspell && npm run release-readiness:api-changes",
+        "release-readiness:cspell": "cspell 'src/**' 'dist/**' 'docs/**' '*'",
+        "release-readiness:api-changes": "npm run compile && api-extractor run"
     },
     "author": "Jordan Mele <SiliconSoldier@outlook.com.au> (https://github.com/Silic0nS0ldier)",
     "license": "MIT",
@@ -40,6 +44,7 @@
         "ava": "^3.15.0",
         "c8": "^7.5.0",
         "changelog-updater": "^2.0.2",
+        "cspell": "^5.3.12",
         "del": "^6.0.0",
         "typescript": "^4.1.3"
     },

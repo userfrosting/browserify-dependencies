@@ -1,0 +1,31 @@
+{
+    "version": "0.1",
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/v5.0.1-alpha.3/cspell.schema.json",
+    "language": "en-US",
+    "words": [
+        "Mele",
+        "browserified"
+    ],
+    "ignoreWords": [
+        "codecov",
+        "jsdevtools",
+        "lcovonly",
+        "postversion",
+        "preversion",
+        "userfrosting",
+        "silvioq"
+    ],
+    "ignorePaths": [
+        "cspell.json",
+        "package-lock.json",
+        "pnpm-lock.yaml",
+        "api-extractor.json",
+        "docs/api/",
+        "dist/",
+        "temp/",
+        "docs/api-extractor/"
+    ],
+    "ignoreRegExpList": [
+        "/Silic0nS0lider/"
+    ]
+}
