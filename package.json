@@ -10,7 +10,7 @@
     "scripts": {
         "compile": "rm -rf ./dist && tsc",
         "pretest": "npm run compile && api-extractor run --local",
-        "test": "c8 --all --reporter=text --reporter=lcovonly ava",
+        "test": "c8 --all --reporter=text --reporter=lcovonly ava -T 2m",
         "prepublishOnly": "npm run compile",
         "preversion": "npm test",
         "version": "npm run version:apiDocRefresh && npm run version:changelogBump",

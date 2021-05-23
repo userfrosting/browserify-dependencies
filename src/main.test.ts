@@ -24,6 +24,9 @@ test.serial("Successfully runs browserify against dependencies", async t => {
     // Second run (files exist in target)
     t.timeout(30000);
     await t.notThrowsAsync(() => browserifyDependencies(options));
+
+    // Clear target
+    await del(options.outputDir);
 });
 
 test.serial("Throws when attempting to browserify non existent dependency", async t => {
@@ -46,6 +49,9 @@ test.serial("Throws when attempting to browserify non existent dependency", asyn
             code: "ENOENT",
         }
     );
+
+    // Clear target
+    await del(options.outputDir);
 });
 
 test.todo("Throws when attempting to browserify dependency with malformed input file without silent flag");
