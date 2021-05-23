@@ -36,7 +36,7 @@ browserifyDependencies(options)
     .catch(() => console.log("Things have not gone according to plan... 🔥"));
 ```
 
-Process modules are wrapped with UMD to allow consumption by most environments, exports in the browser are available via `window.[normalised-package-name]`.
+Process modules are wrapped with UMD to allow consumption by most environments, exports in the browser are available via `window.[normalized-package-name]`.
 
 ## API
 

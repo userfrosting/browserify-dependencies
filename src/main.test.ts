@@ -26,7 +26,7 @@ test.serial("Successfully runs browserify against dependencies", async t => {
     await t.notThrowsAsync(() => browserifyDependencies(options));
 });
 
-test.serial("Throws when attempting to browserify non existant dependency", async t => {
+test.serial("Throws when attempting to browserify non existent dependency", async t => {
     const options: IOptions = {
         dependencies: [
             "p-queue"
