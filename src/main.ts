@@ -4,6 +4,10 @@ import extend from "just-extend";
 import { join as joinPaths } from "path";
 import ono from "@jsdevtools/ono";
 
+function isError(error: any): error is NodeJS.ErrnoException {
+    return error instanceof Error;
+}
+
 /**
  * Runs browserify against compatible dependencies in specified folder.
  * @param userOptions - Options
@@ -50,8 +54,12 @@ export async function browserifyDependencies(userOptions: IOptions): Promise<voi
             }
         }
         catch (ex) {
-            // No issue if it already exists
-            if (ex.code !== "EEXIST") throw ex;
+            if (isError(ex)) {
+                // No issue if it already exists
+                if (ex.code === "EEXIST") return;
+            }
+            
+            throw ex;
         }
 
         // Process dependency
