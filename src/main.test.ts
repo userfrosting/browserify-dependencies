@@ -1,5 +1,5 @@
 import test from "ava";
-import del from "del";
+import * as del from "del";
 import { browserifyDependencies, IOptions } from "@userfrosting/browserify-dependencies";
 
 test.serial("Successfully runs browserify against dependencies", async t => {
@@ -15,7 +15,7 @@ test.serial("Successfully runs browserify against dependencies", async t => {
     };
 
     // Clear target
-    await del(options.outputDir);
+    await del.deleteAsync(options.outputDir);
 
     // First run (no files exist in target)
     t.timeout(30000);
@@ -26,7 +26,7 @@ test.serial("Successfully runs browserify against dependencies", async t => {
     await t.notThrowsAsync(() => browserifyDependencies(options));
 
     // Clear target
-    await del(options.outputDir);
+    await del.deleteAsync(options.outputDir);
 });
 
 test.serial("Throws when attempting to browserify non existent dependency", async t => {
@@ -39,7 +39,7 @@ test.serial("Throws when attempting to browserify non existent dependency", asyn
     };
 
     // Clear target
-    await del(options.outputDir);
+    await del.deleteAsync(options.outputDir);
 
     t.timeout(30000);
     await t.throwsAsync(
@@ -51,7 +51,7 @@ test.serial("Throws when attempting to browserify non existent dependency", asyn
     );
 
     // Clear target
-    await del(options.outputDir);
+    await del.deleteAsync(options.outputDir);
 });
 
 test.todo("Throws when attempting to browserify dependency with malformed input file without silent flag");
