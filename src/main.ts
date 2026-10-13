@@ -97,7 +97,7 @@ async function BrowserifyDependency(depName: string, targetPath: string, options
         }
         bundleStream.on("error", handleError);
         out.on("error", handleError);
-        out.on("finish", resolve)
+        out.on("finish", () => resolve());
     });
 }
 
