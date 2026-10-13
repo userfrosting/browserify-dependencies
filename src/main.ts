@@ -87,7 +87,7 @@ async function BrowserifyDependency(depName: string, targetPath: string, options
     const bundleStream = BrowserifyInstance.bundle();
     bundleStream.pipe(out);
 
-    await new Promise(function (resolve, reject) {
+    await new Promise<void>(function (resolve, reject) {
         let errored = false;
         function handleError(e: any) {
             if (!errored) {
@@ -97,7 +97,7 @@ async function BrowserifyDependency(depName: string, targetPath: string, options
         }
         bundleStream.on("error", handleError);
         out.on("error", handleError);
-        out.on("finish", resolve)
+        out.on("finish", () => resolve());
     });
 }
 
