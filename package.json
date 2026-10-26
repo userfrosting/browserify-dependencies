@@ -44,7 +44,7 @@
         "c8": "^10.1.3",
         "changelog-updater": "^2.0.2",
         "cspell": "^9.0.1",
-        "del": "^8.0.0",
+        "del": "^9.0.1",
         "typescript": "^5.4.2"
     },
     "engines": {
