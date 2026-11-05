@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "module": "es2015",
-        "moduleResolution": "node",
+        "module": "node16",
+        "moduleResolution": "node16",
         "lib": [
             "es2015"
         ],
@@ -9,13 +9,12 @@
         "noEmitHelpers": true,
         "declaration": true,
         "target": "es2017",
+        "rootDir": "./src/",
         "outDir": "./dist/",
         "sourceMap": true,
         "strict": true,
-        // TODO Remove once self-referencing supported https://github.com/microsoft/TypeScript/issues/38675
-        "baseUrl": "./src/",
         "paths": {
-            "@userfrosting/browserify-dependencies": [ "./main" ]
+            "@userfrosting/browserify-dependencies": [ "./src/main.ts" ]
         }
     }
 }
