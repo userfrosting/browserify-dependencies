@@ -2,7 +2,7 @@ import Browserify from "browserify";
 import { createWriteStream, lstatSync, mkdirSync, readFileSync, rmdirSync, unlinkSync } from "fs";
 import extend from "just-extend";
 import { join as joinPaths } from "path";
-import ono from "@jsdevtools/ono";
+import { ono } from "@jsdevtools/ono";
 
 function isError(error: any): error is NodeJS.ErrnoException {
     return error instanceof Error;
